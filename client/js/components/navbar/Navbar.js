@@ -1,49 +1,47 @@
-import React, { Component } from 'react';
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem
-} from 'reactstrap';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
-export default class NavBar extends Component {
-  constructor(props) {
-    super(props);
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+    flexGrow: 1,
+    paddingLeft:'8px',
+  },
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
-  render() {
-    return (
-      <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">Sails React starter</NavbarBrand>
-          <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="mr-auto" navbar>
-              <NavItem>
-                <Link className="nav-link" to="/home">Home</Link>
-              </NavItem>
-              <NavItem>
-                <Link className="nav-link" to="/contact">Contact</Link>
-              </NavItem>
-              <NavItem>
-              <Link className="nav-link" to="/more">More...</Link>
-              </NavItem>
-            </Nav>
-          </Collapse>
-        </Navbar>
-      </div>
-    );
-  }
+  navcontaine: (props) => ({
+    backgroundColor: props.backgroundColor,
+    boxShadow: 'none',
+    color: '#0043ce',
+  }),
+
+}));
+
+export default function NavBar(props) {
+  const classes = useStyles(props);
+
+  return (
+    <div className={classes.root}>
+      <AppBar position="static" color="transparent" className={classes.navcontaine}>
+        <Toolbar>
+          
+          <Typography variant="h6" className={classes.title}>
+            File Management
+          </Typography>
+          <Button color="inherit">About</Button>
+          <Button color="inherit">Contact</Button>
+        </Toolbar>
+      </AppBar>
+    </div>
+  );
 }

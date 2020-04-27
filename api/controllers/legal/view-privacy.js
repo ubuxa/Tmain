@@ -7,19 +7,13 @@ module.exports = {
   description: 'Display "Privacy policy" page.',
 
 
-  exits: {
-
-    success: {
-      viewTemplatePath: 'pages/legal/privacy'
-    }
-
-  },
+  
 
 
   fn: async function () {
 
     // All done.
-    return;
+    return 'tyu';
 
   }
 
