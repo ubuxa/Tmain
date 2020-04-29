@@ -18,6 +18,8 @@ import NavBar from '../navbar/Navbar';
 import DrawerContainer from '../drawer/DrawerContainer';
 import Paper from '@material-ui/core/Paper';
 import { positions,left,right } from '@material-ui/system';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import Popover from '@material-ui/core/Popover';
 
 
 function Copyright() {
@@ -108,6 +110,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: '20px',
     paddingLeft: '20px',
   },
+  typography: {
+    padding: theme.spacing(2),
+  },
+
   footer: {
     marginTop: theme.spacing(8),
     paddingTop: theme.spacing(3),
@@ -187,11 +193,24 @@ const footers = [
 
 export default function Folder() {
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <NavBar styles=""/>
+      <NavBar />
       
       {/* Hero unit */}
       <Grid className={classes.navcontaine} container xs={12} sm={12} md={12} component={Paper} square>
@@ -272,14 +291,34 @@ export default function Folder() {
                  <Grid container>
               <Grid item xs>
                 <Button  variant="contained" color="primary" >
-                    Share
+                    Share Folder
                   </Button>
 
               </Grid>
               <Grid item>
-                <Button  variant="outlined" color="primary">
-                    Settings
+                <Button  aria-describedby={id} variant="outlined" color="primary" endIcon={<ArrowDropDownIcon />} onClick={handleClick} >
+                    Setting Folder
                   </Button>
+                  <Popover
+                  id={id}
+                  open={open}
+                  anchorEl={anchorEl}
+                  onClose={handleClose}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                  }}
+                >
+                  <Typography className={classes.typography}>Rename</Typography>
+                  <Typography className={classes.typography}>Move</Typography>
+                  <Typography className={classes.typography}>Copy</Typography>
+                  <Typography className={classes.typography}>Delete</Typography>
+                  <Typography className={classes.typography}>Request File</Typography>
+                </Popover>
               </Grid>
             </Grid>
 
